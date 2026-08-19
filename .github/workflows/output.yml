@@ -1,8 +1,12 @@
+# GitHub Actions workflow demonstrating manual triggers
+# Demonstrates: workflow_dispatch trigger and accessing GitHub context variables
 name: Output information
-on: workflow_dispatch
+on: workflow_dispatch  # Manually triggered from the Actions tab in GitHub UI
 jobs:
+  # Single job that outputs GitHub context information
   info:
     runs-on: ubuntu-latest
     steps:
         - name: Output GitHub context
+          # github object contains info about repository, workflow, actor, event, etc.
           run: echo "${{ toJSON(github) }}"

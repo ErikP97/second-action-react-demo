@@ -1,6 +1,9 @@
+# GitHub Actions workflow demonstrating multiple trigger methods
+# Demonstrates: multiple triggers (push and manual), job dependencies, and deployment stages
 name: Test Project
-on: [push, workflow_dispatch]
+on: [push, workflow_dispatch]  # Triggers on push OR manual trigger from GitHub UI
 jobs:
+    # Job 1: Test - runs automated tests
     test:
         runs-on: ubuntu-latest
         steps:
@@ -14,8 +17,9 @@ jobs:
               run: npm ci
             - name: Run Tests
               run: npm test
+    # Job 2: Deploy - runs only after tests pass
     deploy:
-        needs: test
+        needs: test  # Waits for test job to succeed before starting
         runs-on: ubuntu-latest
         steps:
             - name: Get Code
